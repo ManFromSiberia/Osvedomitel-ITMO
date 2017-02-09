@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node index.js"
   },
+  "engines": {
+    "node": "6.9.x",
+    "npm": "3.10.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Bizzonium/Osvedomitel-ITMO.git"
