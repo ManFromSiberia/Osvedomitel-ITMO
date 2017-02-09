@@ -1,0 +1,23 @@
+{
+  "name": "osvedomitel-itmo",
+  "version": "0.0.1",
+  "description": "Telegram-bot that will provide you with all the necessary information during your studies at the ITMO University",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bizzonium/Osvedomitel-ITMO.git"
+  },
+  "author": "Aziz Chynaliev, Artyom Podkorytov",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Bizzonium/Osvedomitel-ITMO/issues"
+  },
+  "homepage": "https://github.com/Bizzonium/Osvedomitel-ITMO#readme",
+  "dependencies": {
+    "mongodb": "^2.2.22",
+    "node-telegram-bot-api": "^0.26.0"
+  }
+}
