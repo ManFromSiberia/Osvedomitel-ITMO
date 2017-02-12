@@ -1,5 +1,3 @@
 // config\TelegramBotToken.js
 
-module.exports = {
-    token : 'PasteYourTelegramBotTokenHere'
-};
+module.exports = 'PasteYourTelegramBotTokenHere';

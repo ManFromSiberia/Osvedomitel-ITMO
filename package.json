@@ -14,7 +14,18 @@
     "type": "git",
     "url": "git+https://github.com/Bizzonium/Osvedomitel-ITMO.git"
   },
-  "author": "Aziz Chynaliev, Artyom Podkorytov",
+  "contributors": [
+    {
+      "name" : "Aziz Chynaliev",
+      "email" : "azizong@gmail.com",
+      "url" : "https://github.com/Bizzonium"
+    },
+    {
+      "name" : "Artem Podkorytov",
+      "email" : "manfromsiberia@yandex.ru",
+      "url" : "https://github.com/ManFromSiberia"
+    }
+  ],
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/Bizzonium/Osvedomitel-ITMO/issues"
@@ -22,6 +33,7 @@
   "homepage": "https://github.com/Bizzonium/Osvedomitel-ITMO#readme",
   "dependencies": {
     "mongodb": "^2.2.22",
-    "node-telegram-bot-api": "^0.26.0"
+    "node-telegram-bot-api": "^0.26.0",
+    "request": "^2.79.0"
   }
 }

@@ -39,6 +39,10 @@ jspm_packages
 # Config files with private information like passwords, tokens, etc...
 config/db.js
 config/TelegramBotToken.js
+config/IsuApiToken.js
 
 # IDE files
 .idea
+
+# Heroku auth
+.netrc
