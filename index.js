@@ -15,7 +15,7 @@ bot.onText(/\/start/, function (msg) {
 });
 
 bot.onText(/\/menu/, function (msg) {
-  bot.sendMessage(msg.chat.id, 'Выберите что вы хотите сделать', keyboardMenu);
+  showHelloMenu(msg);
 });
 
 /*
@@ -41,9 +41,9 @@ var keyboardHelloMenu = {
 var keyboardSettings = {
   reply_markup: JSON.stringify({
     inline_keyboard: [
-      [{ text: '⚙Номер вашей группы', callback_data: 'userGroup' }],
-      [{ text: '📅👥Уведомление о следующей паре', callback_data: 'notificationLesson' }],
-      [{ text: '📅👤Уведомления о расписание на день', callback_data: 'notificationDay' }],
+      [{ text: '🎓Номер вашей группы', callback_data: 'userGroup' }],
+      [{ text: '🔔Уведомление о следующей паре', callback_data: 'notificationLesson' }],
+      [{ text: '🔔Уведомления о расписание на день', callback_data: 'notificationDay' }],
         [{ text: '⬅️Вернуться назад', callback_data: 'settingsBack' }]
     ]
   })
@@ -56,7 +56,15 @@ var keyboardYesOrNo = {
  ]
   })
 };
-
+var keyboardNotificationSettings = {
+  reply_markup: JSON.stringify({
+    inline_keyboard: [
+      [{ text: '⚙Настроить профиль', callback_data: 'settings' }],
+      [{ text: '📅👥Расписание группы', callback_data: 'groupSchedule' }],
+      [{ text: '📅👤Расписание преподователя', callback_data: 'teacherSchedule' }]
+    ]
+  })
+};
 
 /*
   Основной функционал
@@ -76,6 +84,8 @@ bot.on('callback_query', function (callbackQuery) {
 
   if (callbackQuery.data == 'settings') {
     //console.log(callbackQuery);
+
+
     bot.editMessageText('Настройки профиля', {
       'chat_id': callbackQuery.from.id,
       'message_id': callbackQuery.message.message_id,
@@ -106,8 +116,11 @@ bot.on('callback_query', function (callbackQuery) {
   if (callbackQuery.data == 'notificationDay'){
     userOptions.notificationDay = !userOptions.notificationDay;
     //console.log(userOptions.notificationDay);
-    bot.answerCallbackQuery(callbackQuery.id,'✔Уведомления о расписании на день ' + ((userOptions.notificationDay==true)?'включены':'выключены'),false);
 
+    bot.answerCallbackQuery(callbackQuery.id,'✔Уведомления о расписании на день ' + ((userOptions.notificationDay==true)?'включены':'выключены'),false);
+    /*
+    TODO: изменение каждой клавиши на другой смайл при изменение.
+     */
     if (userOptions.notificationDay == true) {
       bot.editMessageText('Хотите выполнить настройку уведомлений сейчас?(Если нажмете нет, то они автоматически отключатся)', {
         'chat_id': callbackQuery.from.id,
@@ -120,15 +133,19 @@ bot.on('callback_query', function (callbackQuery) {
   if (callbackQuery.data == 'notificationLesson') {
     userOptions.notificationNextLesson = !userOptions.notificationNextLesson;
    // console.log(userOptions.notificationDay);
+    /*
+     TODO: изменение каждой клавиши на другой смайл при изменение.
+     */
     bot.answerCallbackQuery(callbackQuery.id, '✔Уведомления о следующей паре ' + ((userOptions.notificationNextLesson == true) ? 'включены' : 'выключены'), false);
 }
 
 
   if (callbackQuery.data == 'yes'){
+
     bot.editMessageText('Настройки уведомлений', {
       'chat_id': callbackQuery.from.id,
       'message_id': callbackQuery.message.message_id,
-      'reply_markup': keyboardSettings.reply_markup
+      'reply_markup': keyboardNotificationSettings.reply_markup
     });
 
   }
