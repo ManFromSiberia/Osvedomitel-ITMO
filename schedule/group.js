@@ -2,13 +2,13 @@
  * Содержит путями к API ISU
  * @type {object}
  */
-const paths = require('../config/IsuApiURL.js');
+const PATHS = require('../config/IsuApiURL.js');
 
 /**
  * Содержит токен для использования API ISUПодключаем файл с путями к API ISU
  * @type {string}
  */
-const IsuApiToken = require('../config/IsuApiToken.js');
+const ISU_API_TOKEN = require('../config/IsuApiToken.js');
 
 /**
  * Модуль для работы с http[s]-запросами
@@ -20,7 +20,7 @@ var request = require('request');
  * Содержит константы чётности недели и дней недели
  * @type {object}
  */
-const consts = require('./consts.js');
+var consts = require('./consts.js');
 
 /**
  * Содержит дни недели
@@ -52,7 +52,7 @@ function Group(groupName) {
  * @param {object} callback callback-фукнция, получающая результат на обработку
  */
 Group.prototype.getSchedule = function(weekDay, weekParity, callback) {
-  var url = paths.host + paths.basepath + '/schedule/common/group/'+ IsuApiToken + '/' + this.groupName;
+  var url = PATHS.host + PATHS.basepath + '/schedule/common/group/'+ ISU_API_TOKEN + '/' + this.groupName;
 
   /**
    * Опции для запроса

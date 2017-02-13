@@ -2,31 +2,19 @@
  * Модуль для работы с telegram-ботами
  * @type {object}
  */
-const TelegramBot = require('node-telegram-bot-api');
+var TelegramBot = require('node-telegram-bot-api');
 
 /**
  * Содержит токен телеграм-бота
  * @type {string}
  */
-const telegramBotToken = require('./config/TelegramBotToken');
+var telegramBotToken = require('./config/TelegramBotToken');
 
 /**
  * Создаёт объект модуля TelegramBot
  * @type {TelegramBot}
  */
-const bot = new TelegramBot(telegramBotToken, {polling: true});
-
-/**
- * Модуль для работы с MongoDB
- * @type {object}
- */
-const MongoClient = require('mongodb').MongoClient;
-
-/**
- * Содержить url-адрес к бд MongoDB
- * @type {{url: string}}
- */
-const db = require('./config/MongodbURL');
+var bot = new TelegramBot(telegramBotToken, {polling: true});
 
 /**
  * Модуль для работы с расписанием

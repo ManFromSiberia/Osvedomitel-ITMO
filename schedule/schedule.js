@@ -7,7 +7,7 @@ var Group = require('./group.js');
 /**
  * Содержит константы чётности недели и дней недели
  */
-const consts = require('./consts.js');
+var consts = require('./consts.js');
 
 /**
  * Содержит дни недели
