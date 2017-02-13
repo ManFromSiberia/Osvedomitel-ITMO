@@ -26,7 +26,7 @@ const MongoClient = require('mongodb').MongoClient;
  * Содержить url-адрес к бд MongoDB
  * @type {{url: string}}
  */
-const db = require('./config/db');
+const db = require('./config/MongodbURL');
 
 /**
  * Модуль для работы с расписанием
@@ -34,7 +34,7 @@ const db = require('./config/db');
  */
 var schedule = require('./schedule/schedule.js');
 
-schedule.Group('P3217').get(schedule.WEEK_DAY.WEDNESDAY, schedule.WEEK_PARITY.EVEN, function showSchedule(schedule) {
+schedule.Group('P3217').getSchedule(schedule.WEEK_DAY.WEDNESDAY, schedule.WEEK_PARITY.EVEN, function showSchedule(schedule) {
   //TODO processing and output
   console.log(schedule);
 });

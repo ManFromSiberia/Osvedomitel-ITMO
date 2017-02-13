@@ -51,7 +51,7 @@ function Group(groupName) {
  * @param {number} weekParity чётность недели
  * @param {object} callback callback-фукнция, получающая результат на обработку
  */
-Group.prototype.get = function(weekDay, weekParity, callback) {
+Group.prototype.getSchedule = function(weekDay, weekParity, callback) {
   var url = paths.host + paths.basepath + '/schedule/common/group/'+ IsuApiToken + '/' + this.groupName;
 
   /**

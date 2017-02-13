@@ -1,3 +1,8 @@
-// config\TelegramBotToken.js
+/**
+ * ./config/IsuApiToken.js
+ */
 
-module.exports = 'PasteYourTokeHere';
+/** Содержит токен для использования API ISU
+ * @type {string}
+ */
+module.exports = 'PasteYourTokenHere';
