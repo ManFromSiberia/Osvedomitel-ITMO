@@ -16,14 +16,14 @@
   },
   "contributors": [
     {
-      "name" : "Aziz Chynaliev",
-      "email" : "azizong@gmail.com",
-      "url" : "https://github.com/Bizzonium"
+      "name": "Aziz Chynaliev",
+      "email": "azizong@gmail.com",
+      "url": "https://github.com/Bizzonium"
     },
     {
-      "name" : "Artem Podkorytov",
-      "email" : "manfromsiberia@yandex.ru",
-      "url" : "https://github.com/ManFromSiberia"
+      "name": "Artem Podkorytov",
+      "email": "manfromsiberia@yandex.ru",
+      "url": "https://github.com/ManFromSiberia"
     }
   ],
   "license": "GPL-3.0",
