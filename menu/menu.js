@@ -11,7 +11,6 @@ var keyboards = require('./keyboards.js');
  * @constructor
  */
 function Menu(bot) {
-  console.log('lol');
   this.bot = bot;
 }
 
