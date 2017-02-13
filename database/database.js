@@ -21,6 +21,23 @@ function Database() {
 }
 
 /**
+ * Пример работы с этим модулем:
+ *   var Database = require('./database/database.js');
+ *   Database = new Database();
+ *   var object = {
+ *    id: 1337,
+ *    notifications: true,
+ *    kukareku: "kwa-kwa-lol-kek"
+ *   }
+ *   Database.insert("users", object, function(err, result){
+ *   console.log(result);
+ *   });
+ *
+ * подробнее тут: http://metanit.com/web/nodejs/6.1.php
+ * возможно этот модуль не будет работать. ещё ни разу его не тестил
+ */
+
+/**
  * Вставляет objects в collection и выполняет callback-функцию
  *
  * @param {string} collection коллекция
@@ -113,3 +130,5 @@ Database.prototype.update = function (collection, filter, updateFilter, callback
     );
   });
 };
+
+module.exports = Database;
