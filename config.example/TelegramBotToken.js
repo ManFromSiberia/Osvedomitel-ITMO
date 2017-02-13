@@ -1,5 +1,8 @@
-// config\TelegramBotToken.js
+/**
+ * ./config/TelegramBotToken.js
+ */
 
-module.exports = {
-    token : 'PasteYourTelegramBotTokenHere'
-};
+/** Содержит токен телеграм-бота
+ * @type {string}
+ */
+module.exports = 'PasteYourTokenHere';

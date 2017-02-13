@@ -37,8 +37,12 @@ jspm_packages
 .node_repl_history
 
 # Config files with private information like passwords, tokens, etc...
-config/db.js
+config/MongodbURL.js
 config/TelegramBotToken.js
+config/IsuApiToken.js
 
 # IDE files
 .idea
+
+# Heroku auth
+.netrc
