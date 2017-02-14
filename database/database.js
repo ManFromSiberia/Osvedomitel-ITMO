@@ -8,7 +8,7 @@ var mongoClient = require('mongodb').MongoClient;
  * Содержить url-адрес к бд MongoDB
  * @type {{url: string}}
  */
-var url = require('./config/MongodbURL');
+var url = require('../config/MongodbURL');
 
 /**
  * Создаёт экземпляр класса Database
@@ -50,7 +50,7 @@ Database.prototype.insert = function(collection, objects, callback){
       return console.log(err);
     }
 
-    db.collection(collection).insertMany(users, function(err, results){
+    db.collection(collection).insertOne(objects, function(err, results){
       if(err){
         return console.log(err);
       }
