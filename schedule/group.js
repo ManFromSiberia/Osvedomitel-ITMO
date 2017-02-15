@@ -2,13 +2,13 @@
  * Содержит путями к API ISU
  * @type {object}
  */
-const PATHS = require('../config/IsuApiURL.js');
+const paths = require('../config/IsuApiURL.js');
 
 /**
  * Содержит токен для использования API ISUПодключаем файл с путями к API ISU
  * @type {string}
  */
-const ISU_API_TOKEN = require('../config/IsuApiToken.js');
+const IsuApiToken = require('../config/IsuApiToken.js');
 
 /**
  * Модуль для работы с http[s]-запросами

@@ -20,9 +20,4 @@ var bot = new TelegramBot(telegramBotToken, {polling: true});
  * Модуль для работы с расписанием
  * @type {object}
  */
-var schedule = require('./schedule/schedule.js');
-
-schedule.Group('P3217').getSchedule(schedule.WEEK_DAY.WEDNESDAY, schedule.WEEK_PARITY.EVEN, function showSchedule(schedule) {
-  //TODO processing and output
-  console.log(schedule);
-});
+var Schedule = require('./schedule/schedule.js');
