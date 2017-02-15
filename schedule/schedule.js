@@ -5,43 +5,75 @@
 var Group = require('./group.js');
 
 /**
+ * Модуль для работы с группами
+ * @type {Teacher}
+ */
+var Teacher = require('./teacher.js');
+
+/**
  * Содержит константы чётности недели и дней недели
  */
 const consts = require('./consts.js');
 
 /**
+ * Создает экземпляр класса Schedule
+ * @this {Schedule}
+ * @constructor
+ */
+function Schedule() {
+
+}
+
+/**
  * Содержит дни недели
  * @type {object}
  */
-module.exports.WEEK_DAY = consts.WEEK_DAY;
+Schedule.prototype.WEEK_DAY = consts.WEEK_DAY;
 
 /**
  * Содержит чётность недели
  * @type {object}
  */
-module.exports.WEEK_PARITY = consts.WEEK_PARITY;
+Schedule.prototype.WEEK_PARITY = consts.WEEK_PARITY;
 
 /**
  * Создаёт экземпляр класса Group
+ *
+ * Пример использования:
+ * var Schedule = require('./schedule/schedule.js');
+ * Schedule = new Schedule();
+ * Schedule.Group('P3217').getSchedule(Schedule.WEEK_DAY.ALL, Schedule.WEEK_PARITY.EVEN, function (result) {
+ *  //processing and output
+ *  console.log(result);
+ * });
+ *
  * @param {string} groupName номер группы
  * @returns {Group}
  * @constructor
  */
-module.exports.Group = function (groupName) {
+Schedule.prototype.Group = function (groupName) {
   return new Group(groupName);
 };
 
 /**
  * Создаёт экземпляр класса Teacher
- * @param {number} teacherId ID Преподавателя
+ *
+ * Пример использования:
+ * var Schedule = require('./schedule/schedule.js');
+ * Schedule = new Schedule();
+ * Schedule.Teacher(157347).getSchedule(Schedule.WEEK_DAY.ALL, Schedule.WEEK_PARITY.EVEN, function (result) {
+ *  //processing and output
+ *  console.log(result);
+ * });
+ * @param {number} teacherId ID преподавателя
  * @returns {Teacher}
  * @constructor
  */
-module.exports.Teacher = function (teacherId) {
-  // return new Teacher(teacherId);
+Schedule.prototype.Teacher = function (teacherId) {
+  return new Teacher(teacherId);
 };
 
-
+module.exports = Schedule;
 
 
 
