@@ -91,7 +91,9 @@ Teacher.prototype.getSchedule = function(weekDay, weekParity, callback) {
                 }
               }
             }
-            group.study_schedule.push(item);
+            if (item.lessons.length > 0){
+              group.study_schedule.push(item);
+            }
           }
         }else {
           var item = {};
@@ -108,9 +110,13 @@ Teacher.prototype.getSchedule = function(weekDay, weekParity, callback) {
               }
             }
           }
-          group.study_schedule.push(item);
+          if (item.lessons.length > 0){
+            group.study_schedule.push(item);
+          }
         }
-        result.push(group);
+        if (group.study_schedule.length > 0){
+          result.push(group);
+        }
       }
 
       callback(result);

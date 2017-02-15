@@ -42,19 +42,18 @@ const WEEK_PARITY = options.WEEK_PARITY;
  * @constructor
  */
 function Group(groupName) {
-  this.groupName = groupName;
+ this.groupName = groupName;
 }
+
 
 /**
  * Получает расписание занятий групп по указанным параметрам и передаёт результат в callback-функцию
  * @param {number} weekDay день недели
  * @param {number} weekParity чётность недели
  * @param {function} callback callback-фукнция, получающая результат на обработку
+ * @param {boolean} getFormatted вернуть не коллекцию, а форматированный текст
  */
-Group.prototype.getSchedule = function(weekDay, weekParity, callback) {
-  if(weekDay === WEEK_DAY.TOMORROW){
-
-  }
+Group.prototype.getSchedule = function(weekDay, weekParity, callback, getFormatted) {
   /**
    * Опции для запроса
    * Подробнее: https://www.npmjs.com/package/request#requestoptions-callback
@@ -70,47 +69,127 @@ Group.prototype.getSchedule = function(weekDay, weekParity, callback) {
    */
   request(options, function (error, response, body) {
     if (!error && response.statusCode === 200) {
-      var schedule = body.faculties[0].departments[0].groups[0].study_schedule;
+      var schedule = body.faculties[0].departments[0].groups;
       var result = [];
 
+      var group = {};
+      group.group_name = schedule[0].group_name;
+      group.study_schedule = [];
+      var day = schedule[0].study_schedule;
+
       if (weekDay === WEEK_DAY.ALL){
-        for (var day = 0, len = schedule.length; day < len; day++) {
+        for (var dayIndex = 0, len = day.length; dayIndex < len; dayIndex++) {
           var item = {};
-          item.weekday = schedule[day].weekday;
+          item.weekday = day[dayIndex].weekday;
           item.lessons = [];
 
-          for (var i = 0, len2 = schedule[day].lessons.length; i < len2; i++){
+          for (var i = 0, len2 = day[dayIndex].lessons.length; i < len2; i++){
             if(weekParity === WEEK_PARITY.BOTH){
-              item.lessons.push(schedule[day].lessons[i]);
+              item.lessons.push(day[dayIndex].lessons[i]);
             }else{
-              if(schedule[day].lessons[i].parity === weekParity || schedule[day].lessons[i].parity === WEEK_PARITY.BOTH){
-                item.lessons.push(schedule[day].lessons[i]);
+              if(day[dayIndex].lessons[i].parity === weekParity
+                || day[dayIndex].lessons[i].parity === WEEK_PARITY.BOTH){
+                item.lessons.push(day[dayIndex].lessons[i]);
               }
             }
           }
-          result.push(item);
+
+          if(item.lessons.length > 0){
+            group.study_schedule.push(item);
+          }
         }
       }else {
         var item = {};
         item.weekday = weekDay;
         item.lessons = [];
 
-        for (var i = 0, len = schedule[weekDay-1].lessons.length; i < len; i++){
+        for (var i = 0, len = day[weekDay-1].lessons.length; i < len; i++){
           if(weekParity === WEEK_PARITY.BOTH){
-            item.lessons.push(schedule[weekDay-1].lessons[i]);
+            item.lessons.push(day[weekDay-1].lessons[i]);
           }else{
-            if(schedule[weekDay-1].lessons[i].parity === weekParity || schedule[weekDay-1].lessons[i].parity === WEEK_PARITY.BOTH){
-              item.lessons.push(schedule[weekDay-1].lessons[i]);
+            if(day[weekDay-1].lessons[i].parity === weekParity
+              || day[weekDay-1].lessons[i].parity === WEEK_PARITY.BOTH){
+              item.lessons.push(day[weekDay-1].lessons[i]);
             }
           }
         }
 
-        result.push(item);
+        if (item.lessons.length > 0){
+          group.study_schedule.push(item);
+        }
+
       }
 
-      callback(result);
+      if (group.study_schedule.length > 0){
+        result.push(group);
+      }
+
+      if(getFormatted){
+        callback(format(result));
+      }else{
+        callback(result);
+      }
     }
   });
 };
+
+/**
+ * Форматирует переданную коллекцию
+ */
+function format(schedule) {
+  var result = [];
+
+  var date = new Date();
+  //date.setDate( date.getDate() + 1);
+  var dateString = date.getDate() + ' ' + options.MONTHS_STRING_LONG[date.getMonth()] + ' ' + date.getFullYear() + ' г.';
+  var message = 'Расписание занятий для группы ' + schedule[0].group_name + '\n' +
+                '<code>Сегодня ' + dateString + '</code>';
+  result.push(message);
+
+  var group =  schedule[0].study_schedule;
+
+
+  for(var dayIndex = 0, len = group.length;  dayIndex < len; dayIndex++){
+    var day = group[dayIndex];
+    date.setDate( date.getDate() + dayIndex);
+    message = '<b>'+options.WEEK_DAY_STRING[day.weekday]+'</b>' + '\n'; //+ '<code>\t\t' + dateString + '</code>' +'\n';
+
+    for(var lessonIndex = 0, len2 = day.lessons.length; lessonIndex < len2; lessonIndex++){
+      var lesson = day.lessons[lessonIndex];
+
+      var type = '';
+      switch (lesson.type){
+        case '1': type = 'лек '; break;
+        case '2': type = 'лаб '; break;
+        case '3': type = 'прак'; break;
+      }
+
+      var aud_name = lesson.auditories[0].auditory_name;
+      if(aud_name == null){
+        aud_name = '';
+      }else{
+        aud_name = aud_name +' ауд., ';
+      }
+
+      var teach_name = lesson.teachers[0].teacher_name;
+      if(teach_name == null){
+        teach_name = '';
+      }else{
+        teach_name = '<code>'+ teach_name +'</code>\n';
+      }
+
+      message += '<code>' + lesson.time_start + '-' + lesson.time_end + '\t\t</code>' +
+                '<i>' + options.WEEK_PARITY_STRING[lesson.parity] + '</i>\n' +
+                '<code>' + type + '\t\t</code>' + '<b>' + lesson.subject + '</b>\n' +
+                teach_name +
+                '<i>' + aud_name + lesson.auditories[0].auditory_address + '</i>\n'+
+                '\n';
+    }
+    message += '\n';
+    result.push(message);
+  }
+  return result;
+}
+Group.prototype.format = format;
 
 module.exports = Group;
