@@ -12,7 +12,7 @@ module.exports.WEEK_PARITY = {
  * Содержит дни недели
  * @type {{ALL: number, MONDAY: number, TUESDAY: number, WEDNESDAY: number, THURSDAY: number, FRIDAY: number, SATURDAY: number, SUNDAY: number}}
  */
-module.exports.WEEK_DAY = {
+var WEEK_DAY = {
   ALL: 0,
   MONDAY: 1,
   TUESDAY: 2,
@@ -20,5 +20,15 @@ module.exports.WEEK_DAY = {
   THURSDAY: 4,
   FRIDAY: 5,
   SATURDAY: 6,
-  SUNDAY: 7
+  SUNDAY: 7,
+  getTomorrow: getTomorrow
 };
+
+function getTomorrow() {
+  var date = new Date();
+  date.setDate(date.getDate() + 1);
+  var weekDay = [7, 1, 2, 3, 4, 5, 6];
+  return weekDay[date.getDay()];
+}
+
+module.exports.WEEK_DAY = WEEK_DAY;
