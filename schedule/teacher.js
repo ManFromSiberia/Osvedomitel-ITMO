@@ -20,19 +20,19 @@ var request = require('request');
  * Содержит константы чётности недели и дней недели
  * @type {object}
  */
-const consts = require('./consts.js');
+const options = require('./options.js');
 
 /**
  * Содержит дни недели
  * @type {object}
  */
-const WEEK_DAY = consts.WEEK_DAY;
+const WEEK_DAY = options.WEEK_DAY;
 
 /**
  * Содержит чётность недели
  * @type {object}
  */
-const WEEK_PARITY = consts.WEEK_PARITY;
+const WEEK_PARITY = options.WEEK_PARITY;
 
 /**
  * Создает экземпляр класса Teacher

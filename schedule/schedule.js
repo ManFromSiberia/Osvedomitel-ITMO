@@ -13,7 +13,7 @@ var Teacher = require('./teacher.js');
 /**
  * Содержит константы чётности недели и дней недели
  */
-const consts = require('./consts.js');
+const options = require('./options.js');
 
 /**
  * Создает экземпляр класса Schedule
@@ -28,13 +28,13 @@ function Schedule() {
  * Содержит дни недели
  * @type {object}
  */
-Schedule.prototype.WEEK_DAY = consts.WEEK_DAY;
+Schedule.prototype.WEEK_DAY = options.WEEK_DAY;
 
 /**
  * Содержит чётность недели
  * @type {object}
  */
-Schedule.prototype.WEEK_PARITY = consts.WEEK_PARITY;
+Schedule.prototype.WEEK_PARITY = options.WEEK_PARITY;
 
 /**
  * Создаёт экземпляр класса Group
@@ -42,7 +42,7 @@ Schedule.prototype.WEEK_PARITY = consts.WEEK_PARITY;
  * Пример использования:
  * var Schedule = require('./schedule/schedule.js');
  * Schedule = new Schedule();
- * Schedule.Group('P3217').getSchedule(Schedule.WEEK_DAY.ALL, Schedule.WEEK_PARITY.EVEN, function (result) {
+ * Schedule.Group('P3217').getSchedule(Schedule.WEEK_DAY.getTomorrow(), Schedule.WEEK_PARITY.EVEN, function (result) {
  *  //processing and output
  *  console.log(result);
  * });
