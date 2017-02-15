@@ -22,18 +22,52 @@ module.exports.keyboardSettings = {
 module.exports.keyboardYesOrNo = {
   reply_markup: JSON.stringify({
     inline_keyboard: [
-      [{ text: '✔Да', callback_data: 'yes' }],
-      [{ text: '✖️Нет', callback_data: 'no' }]
+      [{ text: '✔Да', callback_data: 'yes' },{ text: '✖️Нет', callback_data: 'no' }]
     ]
   })
 };
 
-module.exports.keyboardNotificationSettings = {
+module.exports.keyboardNotificationTime = {
   reply_markup: JSON.stringify({
     inline_keyboard: [
-      [{ text: '⚙Настроить профиль', callback_data: 'settings' }],
-      [{ text: '📅👥Расписание группы', callback_data: 'groupSchedule' }],
-      [{ text: '📅👤Расписание преподователя', callback_data: 'teacherSchedule' }]
+      [{ text: '🌝Утро(6:30-12:00)', callback_data: 'morning'},{ text: '🌞День(12:30-18:00)', callback_data: 'lunch'}],
+      [{ text: '🌚Вечер(18:30-00:00)', callback_data: 'evening'},{ text: '🚫Отмена', callback_data: 'no' }]
     ]
   })
+};
+
+module.exports.keyboardChooseTimeMorning = {
+ reply_markup: JSON.stringify(({
+   inline_keyboard: [
+     [{text: '🕡6:30', callback_data:'Time_6:30'},{text: '🕖7:00', callback_data:'Time_7:00'},{text: '🕢7:30', callback_data:'Time_7:30'}],
+     [{text: '🕗8:00', callback_data:'Time_8:00'},{text: '🕣8:30', callback_data:'Time_8:30'},{text: '🕘9:00', callback_data:'Time_9:00'}],
+     [{text: '🕤9:30', callback_data:'Time_9:30'},{text: '🕙10:00', callback_data:'Time_10:00'},{text: '🕥10:30', callback_data:'Time_10:30'}],
+     [{text: '🕚11:00', callback_data:'Time_11:00'},{text: '🕦11:30', callback_data:'Time_11:30'},{text: '🕛12:00', callback_data:'Time_12:00'}],
+     [{text: '⬅Вернуться назад', callback_data:'backChooseTime'}]
+   ]
+ }))
+};
+
+module.exports.keyboardChooseTimeLunch = {
+  reply_markup: JSON.stringify(({
+    inline_keyboard: [
+      [{text: '🕧12:30', callback_data:'Time_12:30'},{text: '🕐13:00', callback_data:'Time_13:00'},{text: '🕜13:30', callback_data:'Time_13:30'}],
+      [{text: '🕑14:00', callback_data:'Time_14:00'},{text: '🕝14:30', callback_data:'Time_14:30'},{text: '🕒15:00', callback_data:'Time_15:00'}],
+      [{text: '🕞15:30', callback_data:'Time_15:30'},{text: '🕓16:00', callback_data:'Time_16:00'},{text: '🕟16:30', callback_data:'Time_16:30'}],
+      [{text: '🕔17:00', callback_data:'Time_17:00'},{text: '🕠17:30', callback_data:'Time_17:30'},{text: '🕕18:00', callback_data:'Time_18:00'}],
+      [{text: '⬅Вернуться назад', callback_data:'backChooseTime'}]
+    ]
+  }))
+};
+
+module.exports.keyboardChooseTimeEvening = {
+  reply_markup: JSON.stringify(({
+    inline_keyboard: [
+      [{text: '🕡18:30', callback_data:'Time_18:30'},{text: '🕖19:00', callback_data:'Time_19:00'},{text: '🕢19:30', callback_data:'Time_19:30'}],
+      [{text: '🕗20:00', callback_data:'Time_20:00'},{text: '🕣20:30', callback_data:'Time_20:30'},{text: '🕘21:00', callback_data:'Time_21:00'}],
+      [{text: '🕤21:30', callback_data:'Time_21:30'},{text: '🕙22:00', callback_data:'Time_22:00'},{text: '🕥22:30', callback_data:'Time_22:30'}],
+      [{text: '🕚23:00', callback_data:'Time_23:00'},{text: '🕦23:30', callback_data:'Time_23:30'},{text: '🕛00:00', callback_data:'Time_00:00'}],
+      [{text: '⬅Вернуться назад', callback_data:'backChooseTime'}]
+    ]
+  }))
 };
