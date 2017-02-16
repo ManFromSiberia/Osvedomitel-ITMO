@@ -75,18 +75,18 @@ Teacher.prototype.getSchedule = function(weekDay, weekParity, callback) {
         group.group_name = schedule[groupIndex].group_name;
         group.study_schedule = [];
 
-        if (weekDay === WEEK_DAY.ALL){
+        if (weekDay == WEEK_DAY.ALL){
           for (var day = 0, len = schedule[groupIndex].study_schedule.length; day < len; day++) {
             var item = {};
             item.weekday = schedule[groupIndex].study_schedule[day].weekday;
             item.lessons = [];
 
             for (var i = 0, len2 = schedule[groupIndex].study_schedule[day].lessons.length; i < len2; i++){
-              if(weekParity === WEEK_PARITY.BOTH){
+              if(weekParity == WEEK_PARITY.BOTH){
                 item.lessons.push(schedule[groupIndex].study_schedule[day].lessons[i]);
               }else{
-                if(schedule[groupIndex].study_schedule[day].lessons[i].parity === weekParity
-                  || schedule[groupIndex].study_schedule[day].lessons[i].parity === WEEK_PARITY.BOTH){
+                if(schedule[groupIndex].study_schedule[day].lessons[i].parity == weekParity
+                  || schedule[groupIndex].study_schedule[day].lessons[i].parity == WEEK_PARITY.BOTH){
                   item.lessons.push(schedule[groupIndex].study_schedule[day].lessons[i]);
                 }
               }
@@ -101,11 +101,11 @@ Teacher.prototype.getSchedule = function(weekDay, weekParity, callback) {
           item.lessons = [];
 
           for (var i = 0, len = schedule[groupIndex].study_schedule[weekDay-1].lessons.length; i < len; i++){
-            if(weekParity === WEEK_PARITY.BOTH){
+            if(weekParity == WEEK_PARITY.BOTH){
               item.lessons.push(schedule[groupIndex].study_schedule[weekDay-1].lessons[i]);
             }else{
-              if(schedule[groupIndex].study_schedule[weekDay-1].lessons[i].parity === weekParity
-                || schedule[groupIndex].study_schedule[weekDay-1].lessons[i].parity === WEEK_PARITY.BOTH){
+              if(schedule[groupIndex].study_schedule[weekDay-1].lessons[i].parity == weekParity
+                || schedule[groupIndex].study_schedule[weekDay-1].lessons[i].parity == WEEK_PARITY.BOTH){
                 item.lessons.push(schedule[groupIndex].study_schedule[weekDay-1].lessons[i]);
               }
             }

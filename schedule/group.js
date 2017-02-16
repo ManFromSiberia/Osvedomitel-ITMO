@@ -69,6 +69,10 @@ Group.prototype.getSchedule = function(weekDay, weekParity, callback, getFormatt
    */
   request(options, function (error, response, body) {
     if (!error && response.statusCode === 200) {
+      if(body.faculties.length === 0){
+        return;
+      }
+
       var schedule = body.faculties[0].departments[0].groups;
       var result = [];
 
@@ -77,18 +81,18 @@ Group.prototype.getSchedule = function(weekDay, weekParity, callback, getFormatt
       group.study_schedule = [];
       var day = schedule[0].study_schedule;
 
-      if (weekDay === WEEK_DAY.ALL){
+      if (weekDay == WEEK_DAY.ALL){
         for (var dayIndex = 0, len = day.length; dayIndex < len; dayIndex++) {
           var item = {};
           item.weekday = day[dayIndex].weekday;
           item.lessons = [];
 
           for (var i = 0, len2 = day[dayIndex].lessons.length; i < len2; i++){
-            if(weekParity === WEEK_PARITY.BOTH){
+            if(weekParity == WEEK_PARITY.BOTH){
               item.lessons.push(day[dayIndex].lessons[i]);
             }else{
-              if(day[dayIndex].lessons[i].parity === weekParity
-                || day[dayIndex].lessons[i].parity === WEEK_PARITY.BOTH){
+              if(day[dayIndex].lessons[i].parity == weekParity
+                || day[dayIndex].lessons[i].parity == WEEK_PARITY.BOTH){
                 item.lessons.push(day[dayIndex].lessons[i]);
               }
             }
@@ -104,11 +108,11 @@ Group.prototype.getSchedule = function(weekDay, weekParity, callback, getFormatt
         item.lessons = [];
 
         for (var i = 0, len = day[weekDay-1].lessons.length; i < len; i++){
-          if(weekParity === WEEK_PARITY.BOTH){
+          if(weekParity == WEEK_PARITY.BOTH){
             item.lessons.push(day[weekDay-1].lessons[i]);
           }else{
-            if(day[weekDay-1].lessons[i].parity === weekParity
-              || day[weekDay-1].lessons[i].parity === WEEK_PARITY.BOTH){
+            if(day[weekDay-1].lessons[i].parity == weekParity
+              || day[weekDay-1].lessons[i].parity == WEEK_PARITY.BOTH){
               item.lessons.push(day[weekDay-1].lessons[i]);
             }
           }
@@ -147,7 +151,6 @@ function format(schedule) {
   result.push(message);
 
   var group =  schedule[0].study_schedule;
-
 
   for(var dayIndex = 0, len = group.length;  dayIndex < len; dayIndex++){
     var day = group[dayIndex];
