@@ -3,7 +3,8 @@
  * @type {object}
  */
 var keyboards = require('./keyboards.js');
-
+var User = require('../user/user.js');
+User = new User();
 /**
  * Создаёт экземпляр класса Menu
  *
@@ -13,18 +14,29 @@ var keyboards = require('./keyboards.js');
 function Menu(bot) {
   this.bot = bot;
 }
+this.userOptions = {};
 
 //TODO: сделать подгрузку из БД
 /**
  * Пользовательские настройки
  * @type {object}
  */
-var userOptions = {
-  notificationNextLesson: false,
-  group: null,
-  notificationDay: false,
-  notificationTime: null
+
+Menu.prototype.checkUser = function () {
+
 };
+
+
+Menu.prototype.showStartMenu = function (msg) {
+  this.bot.sendMessage(msg.from.id,'Преветствую тебя, '+msg.chat.first_name+'!'+
+  ' Я бот, который упростит твою жизнь с расписанием в самом неклассическом университете' +
+    'по следующим командам я могу тебе помочь: *тута команды типа будут*');
+
+  User.getOptions(msg.from.id, function (userOptions) {
+  });
+};
+
+
 
 /**
  * Показать главное меню
@@ -41,12 +53,7 @@ Menu.prototype.showHelloMenu = function(msg) {
  *
  * @param {object} callbackQuery
  */
-
-
-
 Menu.prototype.callbackQueryHandler = function(callbackQuery) {
-
-  //console.log(callbackQuery);
 
   /**
    * Условия главного меню и переходы в подменю
@@ -79,18 +86,31 @@ Menu.prototype.callbackQueryHandler = function(callbackQuery) {
     });
   }
 
+
   if (callbackQuery.data == 'userGroup'){
-    this.bot.editMessageText('Введите Вашу группу', {
+    var options = {
+      reply_markup: JSON.stringify({
+        keyboard: [
+          [{ text: 'Обновить мою группу'},{text: 'Отмена'}]
+        ]
+      })
+    };
+
+    this.bot.editMessageText('Выбери что ты хочешь сделать', {
       'chat_id': callbackQuery.from.id,
       'message_id': callbackQuery.message.message_id
+    },options);
 
-    });
-//TODO: доеделать функционал для изменения группы пользователя(можно использовать регулярку)
+
+//TODO: доеделать функционал для изменения группы пользователя
 
   }
 
   if (callbackQuery.data == 'notificationDay'){
-    userOptions.notificationDay = !userOptions.notificationDay;
+    //TODO: user.getOptions(callback.from.id, function(){})
+
+    userOptions.notificationDay = !userOptions.notificationDay; //TODO: отправлять изменения сразу на сервер
+
     this.bot.answerCallbackQuery(callbackQuery.id,'✔Уведомления о расписании на день '
       + ((userOptions.notificationDay==true)?'включены':'выключены'),false);
      //TODO: изменение каждой клавиши на другой смайл при изменение.
