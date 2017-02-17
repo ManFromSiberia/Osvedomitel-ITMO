@@ -4,6 +4,8 @@ var bot = require('./telegrambot/telegramBot.js');
  * Модуль для работы с расписанием
  * @type {object}
  */
+var user = require('./user/user.js');
+var user = new user();
 var Schedule = require('./schedule/schedule.js');
 var Schedule = new Schedule();
 
@@ -13,13 +15,12 @@ var Schedule = new Schedule();
  */
 var Menu = require('./menu/menu.js');
 var Menu = new Menu(bot);
-
 bot.getMe().then(function (me) {
   console.log('Hi my name is %s! And i am running ✔️', me.username);
 });
 
 bot.onText(/\/start/, function(msg){
-  Menu.showHelloMenu(msg);
+  Menu.showStartMenu(msg);
 });
 
 /**
