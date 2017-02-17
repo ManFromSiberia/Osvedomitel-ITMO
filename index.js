@@ -4,12 +4,8 @@ var bot = require('./telegrambot/telegramBot.js');
  * Модуль для работы с расписанием
  * @type {object}
  */
-var schedule = require('./schedule/schedule.js');
-// Пример использования schedule
-// schedule.Group('P3217').getSchedule(schedule.WEEK_DAY.WEDNESDAY, schedule.WEEK_PARITY.EVEN, function showSchedule(schedule) {
-//   //TODO processing and output
-//   console.log(schedule);
-// });
+var Schedule = require('./schedule/schedule.js');
+var Schedule = new Schedule();
 
 /**
  * Содержит экземпляр объекта модуля Menu
@@ -24,6 +20,53 @@ bot.getMe().then(function (me) {
 
 bot.onText(/\/start/, function(msg){
   Menu.showHelloMenu(msg);
+});
+
+/**
+ * Тестовая команда для проверки работы модуля расписаний
+ */
+bot.onText(/\/schedule ([A-Z][0-9]{4}) ([0-8]) ([0-2])/, function(msg, match){
+  var options = {
+    parse_mode: "HTML"
+  };
+
+  var weekDay;
+  if(match[2] == 8){
+    weekDay = Schedule.WEEK_DAY.TOMORROW;
+  }else{
+    weekDay = match[2];
+  }
+  var weekParity = match[3];
+
+  Schedule.Group(match[1]).getSchedule(weekDay, weekParity, function (schedule) {
+    //processing and output
+    for(var i = 0, len = schedule.length; i < len; i++){
+      bot.sendMessage(msg.from.id, schedule[i], options);
+    }
+  }, true);
+
+});
+
+bot.onText(/\/schedule ([0-9]{1,10}) ([0-8]) ([0-2])/, function(msg, match){
+  var options = {
+    parse_mode: "HTML"
+  };
+
+  var weekDay;
+  if(match[2] == 8){
+    weekDay = Schedule.WEEK_DAY.TOMORROW;
+  }else{
+    weekDay = match[2];
+  }
+  var weekParity = match[3];
+
+  Schedule.Teacher(match[1]).getSchedule(weekDay, weekParity, function (schedule) {
+    //processing and output
+    for(var i = 0, len = schedule.length; i < len; i++){
+      bot.sendMessage(msg.from.id, schedule[i], options);
+    }
+  }, true);
+
 });
 
 bot.onText(/\/menu/, function(msg){

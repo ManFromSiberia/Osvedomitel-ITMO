@@ -42,7 +42,7 @@ Schedule.prototype.WEEK_PARITY = options.WEEK_PARITY;
  * Пример использования:
  * var Schedule = require('./schedule/schedule.js');
  * Schedule = new Schedule();
- * Schedule.Group('P3217').getSchedule(Schedule.WEEK_DAY.getTomorrow(), Schedule.WEEK_PARITY.EVEN, function (result) {
+ * Schedule.Group('P3217').getSchedule(Schedule.WEEK_DAY.TOMORROW, Schedule.WEEK_PARITY.EVEN, function (result) {
  *  //processing and output
  *  console.log(result);
  * });
